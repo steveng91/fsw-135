@@ -5,7 +5,7 @@ const Issue = require('../models/issue')
 issueRouter.get('/',(req,res,next) =>{
     Issue.find((err,issueList)=>{
         if(err){
-            res.status(500)
+            res.status(500) 
             return next(err)
         }
         return res.status(200).send(issueList)

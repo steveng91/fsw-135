@@ -4,7 +4,7 @@ const Schema = mongoose.Schema
 const IssueSchema = new Schema({
     topic: {
         type: String,
-        required: true
+        required: true 
     },
     postDate:{
         type: Date,

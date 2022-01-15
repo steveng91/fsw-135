@@ -5,7 +5,7 @@ const UserSchema = new Schema({
     firstName: {
         type: String,
         required: true
-    },
+    }, 
     lastName:{
         type: String,
         required: true
@@ -26,7 +26,7 @@ const UserSchema = new Schema({
     },
     editDate:{
         type: Date,
-        required: false,
+        required: true,
         default: Date.now
     }
 })

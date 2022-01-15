@@ -44,7 +44,7 @@ userRouter.delete('/:userId',(req,res,next)=>{
         return res.status(200).send("User Deleted from database")
     })
 })
-
+ 
 userRouter.put('/:userId',(req,res,next)=>{
     User.findOneAndUpdate({_id: req.params.userId},req.body,(err, updateUser)=>{
         if(err){

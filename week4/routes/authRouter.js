@@ -40,4 +40,18 @@ authRouter.post("/login", (req, res, next) => {
   })
 })
 
+authRouter.post("/login",(req,res,nest)=>{
+  user.findOne({username:req.body.username.toLowerCase()}, (err, user)=>{
+    if(err){
+      res.status(500)
+      return next(err)
+    }
+    if(!user || req.body.password !== user.password){
+    res.status(new Error('invalid login'))
+    }
+    const token = jwt.sign(user.toObject(), process.env.SECRET)
+    return res.status(200).send({token, user})
+  })
+})
+
 module.exports = authRouter

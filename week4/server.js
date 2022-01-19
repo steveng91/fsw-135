@@ -24,6 +24,9 @@ app.use('/api/user', require('./routes/userRouter.js'))
 
 app.use((err,req,res,next)=>{
     console.log(err)
+    if(err.name === "Unauthorized Error"){
+        res.status(err.status)
+    }
     return res.send({errMsg: err.message})
 })
 

@@ -4,7 +4,7 @@ const morgan = require('morgan')
 const mongoose = require('mongoose')
 require('dotenv').config()
 const expressJwt = require('express-jwt')
-const PORT = 9000
+const PORT = 5000
 
 app.use(express.json())
 app.use(morgan('dev'))
@@ -15,9 +15,9 @@ async function main(){
     console.log('connected to the DB')
 }
 
-app.use('/api', expressJwt({ secret: process.env.SECRET, algorithms: ['RS256'] }))
+app.use('/api', expressJwt({ secret: process.env.SECRET, algorithms: ['RS256'] })) 
 
-app.use('/api/auth', require('./routes/authRouter.js'))
+app.use('/auth', require('./routes/authRouter.js'))
 app.use('/api/comment', require('./routes/commentRouter.js'))
 app.use('/api/issue', require('./routes/issueRouter.js'))
 app.use('/api/user', require('./routes/userRouter.js'))

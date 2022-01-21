@@ -1,7 +1,7 @@
 import React from "react";
-import Comment from '/.Comment'
+import Comment from './Comment'
 
-export default function CommentTread(props){
+export default function CommentThread(props){
     const {comment, username} = props
     return(
         <div className = 'comment'>

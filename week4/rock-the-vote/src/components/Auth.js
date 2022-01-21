@@ -1,51 +1,51 @@
 import React, {useState, useContext} from "react";
-import LoginForm from './LoginForm'
 import NewForm from './NewForm'
+import LoginForm from "./LoginForm";
 import {UserContext} from '../context/UserProvider'
 
-const initInputs = {username: "", password: "", firstName: "", lastName: ""}
+const initInput = {username: "", password: "", firstName: "", lastName: ""}
 
 export default function  Auth(){
-    const [inputs, setInputs] = useState(initInputs)
+    const [input, setInput] = useState(initInput)
     const [toggle, setToggle] = useState(false)
 
     const {signup, login} = useContext(UserContext)
 
     function handleChange(e){
         const {name, value} = e.target
-        setInputs(prevInputs => ({
-            ...prevInputs,
+        setInput(prevInput => ({
+            ...prevInput,
             [name]: value
         }))
     }
     function handleSignup(e){
         e.preventDefault()
-        signup(inputs)
+        signup(input)
     }
     function handleLogin(e){
         e.preventDefault()
-        login(inputs)
+        login(input)
     }
     return(
-        <div id = "enroll">
+        <div id = "auth-container">
             <h1>Rock The Vote</h1>
             {!toggle ?
             <>
                 <NewForm
                 handleChange = {handleChange}
                 handleSubmit = {handleSignup}
-                inputs = {inputs}
+                input = {input}
                 />
-                <p id = 'submit' onClick={() => setToggle(prev => !prev)}>Switch to Login</p>
+                <p onClick={() => setToggle(prev => !prev)}>Switch to Login</p>
             </>   
-            :
+            : 
             <>
                 <LoginForm
                 handleChange = {handleChange}
                 handleSubmit = {handleLogin}
-                inputs = {inputs}
+                input = {input}
                 />
-                <p id = 'submit' onClick={() => setToggle(prev => !prev)}> New? Click to Sign up.</p>
+                <p onClick={() => setToggle(prev => !prev)}> Sign Up</p>
             </> 
         }
         </div>

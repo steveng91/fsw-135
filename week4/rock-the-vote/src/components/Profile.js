@@ -4,12 +4,12 @@ import CommentThread from './CommentThread'
 import CommentBox from './CommentBox'
 
 export default function Profile(){
-    const {user:{firstName, lastName, username},
+    const {user:{ username},
 addComment, comment, getUserComments} = useContext(UserContext)
 
 return(
     <div className='profile'>
-        <h1>Hello {firstName} {lastName} AKA @{username}, would you like to leave a comment?</h1>
+        <h1>Hello @{username}, would you like to leave a comment?</h1>
         <h2>New Comment</h2>
         <CommentBox addComment= {addComment}/>
         <h2>view previous comments</h2>

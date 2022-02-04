@@ -14,7 +14,7 @@ authRouter.post("/signup", (req, res, next) => {
       res.status(403)
       return next(new Error('Username Already Exists'))
     }
-  console.log(req.body)
+  // console.log(req.body)
 
     const newUser = new User(req.body)
     // console.log(newUser)
@@ -26,27 +26,39 @@ authRouter.post("/signup", (req, res, next) => {
         res.status(500)
         return next(err)
       }
-      const token = jwt.sign(savedUser.toObject(), process.env.SECRET)
-      return res.status(201).send({ token, user: savedUser })
+      const token = jwt.sign(savedUser.withoutPassword(), process.env.SECRET)
+      return res.status(201).send({ token, user: savedUser.withoutPassword() })
     })
   })
 })
 
 authRouter.post("/login", (req, res, next) => {
-  console.log(req.body)
+  // console.log(req.body)
   User.findOne({ username: req.body.username }, (err, user) => {
     if(err){
       res.status(500)
       return next(err)
     }
-    if(!user || req.body.password !== user.password){
+    if(!user){
       res.status(403)
       return next(new Error('Invalid Credentials'))
     }
+
+    user.checkPassword(req.body.password, (err, isMatch)=>{
+      if(err){
+        res.status(403)
+        return next(new Error('Invalid Credentials'))
+      }
+      if(!isMatch){
+        res.status(403)
+        return next(new Error('Invalid Credentials'))
+      }
+    })
     const token = jwt.sign(user.toObject(), process.env.SECRET)
     return res.status(200).send({ token, user })
   })
 })
+
 
 
 module.exports = authRouter

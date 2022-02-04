@@ -26,7 +26,7 @@ issueRouter.post('/', (req,res,next)=>{
 })
 
 issueRouter.get('/:issueId',(req,res,next)=>{
-    Issue.findOne({_id: req.params.issueId}, req.body, {new: true}, (err,foundIssue)=>{
+    Issue.findOne({_id: req.params.issueId}, req.body, (err,foundIssue)=>{
         if(err){
             res.status(500)
             return next(err)
@@ -46,7 +46,7 @@ issueRouter.delete('/:issueId',(req,res,next)=>{
 })
 
 issueRouter.put('/:issueId',(req,res,next)=>{
-    Issue.findOneAndUpdate({_id: req.params.issueId},req.body,(err, updateIssue)=>{
+    Issue.findOneAndUpdate({_id: req.params.issueId},req.body,{new: true},(err, updateIssue)=>{
         if(err){
             res.status(500)
             return next(err)

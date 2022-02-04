@@ -10,11 +10,6 @@ const IssueSchema = new Schema({
         type: Date,
         required: true,
         default: Date.now
-    },
-    editDate:{
-        type: Date,
-        required: false,
-        default: Date.now
     }
 })
 

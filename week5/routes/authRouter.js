@@ -22,7 +22,7 @@ authRouter.post("/signup", (req, res, next) => {
       // console.log(savedUser, "saved user")
       // console.log(err, 'error')
       if(err){
-        console.log(err.name)
+        // console.log(err.name)
         res.status(500)
         return next(err)
       }
@@ -54,8 +54,8 @@ authRouter.post("/login", (req, res, next) => {
         return next(new Error('Invalid Credentials'))
       }
     })
-    const token = jwt.sign(user.toObject(), process.env.SECRET)
-    return res.status(200).send({ token, user })
+    const token = jwt.sign(user.withoutPassword(), process.env.SECRET)
+    return res.status(200).send({ token, user: user.withoutPassword() })
   })
 })
 

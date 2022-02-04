@@ -27,7 +27,7 @@ commentRouter.post('/', (req,res,next)=>{
 })
 
 commentRouter.get('/:commentId',(req,res,next)=>{
-    Comment.findOne({_id: req.params.commentId}, req.body, {new: true}, (err,foundComment)=>{
+    Comment.findOne({_id: req.params.commentId}, req.body,(err,foundComment)=>{
         if(err){
             res.status(500)
             return next(err)
@@ -47,13 +47,25 @@ commentRouter.delete('/:commentId',(req,res,next)=>{
 })
 
 commentRouter.put('/:commentId',(req,res,next)=>{
-    Comment.findOneAndUpdate({_id: req.params.commentId},req.body,(err, updateComment)=>{
+    Comment.findOneAndUpdate({_id: req.params.commentId},req.body, {new: true},(err, updateComment)=>{
         if(err){
             res.status(500)
             return next(err)
         }
         return res.status(201).send("Comment Updated")
     })
+})
+
+commentRouter.get('/search/byUser', (req,res,next)=>{
+    let userId = req.user._id
+    Comment.find({user: userId},
+        (err,comment)=>{
+            if(err){
+                res.status(500)
+                return next(err)
+            }
+            return res.status(201).send(comment)
+        })
 })
 
 module.exports = commentRouter

@@ -6,7 +6,7 @@ const jwt = require('jsonwebtoken')
 authRouter.post("/signup", (req, res, next) => {
   User.findOne({ username: req.body.username }, (err, user) => {
     if(err){
-      console.log("IT BROKE HERE")
+      // console.log("IT BROKE HERE")
       res.status(500)
       return next(err)
     }
@@ -17,9 +17,9 @@ authRouter.post("/signup", (req, res, next) => {
   console.log(req.body)
 
     const newUser = new User(req.body)
-    console.log(newUser)
+    // console.log(newUser)
     newUser.save((err, savedUser) => {
-      console.log(savedUser, "saved user")
+      // console.log(savedUser, "saved user")
       // console.log(err, 'error')
       if(err){
         console.log(err.name)
@@ -48,18 +48,5 @@ authRouter.post("/login", (req, res, next) => {
   })
 })
 
-// authRouter.post("/login",(req,res,nest)=>{
-//   user.findOne({username:req.body.username.toLowerCase()}, (err, user)=>{
-//     if(err){
-//       res.status(500)
-//       return next(err)
-//     }
-//     if(!user || req.body.password !== user.password){
-//     res.status(new Error('invalid login'))
-//     }
-//     const token = jwt.sign(user.toObject(), process.env.SECRET)
-//     return res.status(200).send({token, user})
-//   })
-// })
 
 module.exports = authRouter

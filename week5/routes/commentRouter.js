@@ -3,6 +3,7 @@ const commentRouter = express.Router()
 const Comment = require('../models/comment')
 
 commentRouter.get('/',(req,res,next) =>{
+    // console.log(req.body, "it broke here")
     Comment.find((err,commentList)=>{
         if(err){
             res.status(500)
@@ -13,7 +14,9 @@ commentRouter.get('/',(req,res,next) =>{
 })
 
 commentRouter.post('/', (req,res,next)=>{
+    req.body.user = req.user._id
     const createComment = new Comment(req.body)
+    // console.log(req.body, "here is where it broke")
     createComment.save((err,newComment)=>{
         if(err){
             res.status(500)

@@ -15,7 +15,7 @@ async function main(){
     console.log('connected to the DB')
 }
 
-app.use('/api/', expressJwt({ secret: process.env.SECRET, algorithms: ['RS256'] })) 
+app.use('/api', expressJwt({ secret: process.env.SECRET, algorithms: ['RS256'] })) 
 
 app.use('/auth', require('./routes/authRouter.js'))
 app.use('/api/comment', require('./routes/commentRouter.js'))
@@ -23,7 +23,7 @@ app.use('/api/issue', require('./routes/issueRouter.js'))
 app.use('/api/user', require('./routes/userRouter.js'))
 
 app.use((err,req,res,next)=>{
-    console.log(err.name)
+    console.log(err.name, "this is broken")
     if(err.name === "UnauthorizedError"){
         res.status(err.status)
     }

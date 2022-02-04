@@ -3,9 +3,10 @@ import axios from 'axios'
 export const UserContext = React.createContext()
 
 const userAxios = axios.create()
+
 userAxios.interceptors.request.use(config=>{
     const token = localStorage.getItem('token')
-    config.headers.Authorization = `bearer ${token}`
+    config.headers.Authorization = `Bearer ${token}`
     return config
 })
 
@@ -50,11 +51,11 @@ export default function UserProvider(props){
             const{user,token}=res.data
             localStorage.setItem('token',token)
             localStorage.setItem('user', JSON.stringify(user))
-            selectIssue()
-            getUserComments()
+            selectIssue()          
             setUserState(prevUserState=>({
                 ...prevUserState,user,token
             }))
+            getUserComments()
         })
         .catch(err => handleError(err.response.data.errMsg))
     }
@@ -100,7 +101,8 @@ export default function UserProvider(props){
                 ...prevState, comment: [...prevState.comment, res.data]
             }))
         })
-        .catch(err=> handleError(err.response.data.errMsg))
+        .catch(err=> handleError(err.response.data.errMsg, 'it broke here'))
+
     }
     
     return (

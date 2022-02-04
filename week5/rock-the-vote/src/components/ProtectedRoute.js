@@ -6,8 +6,3 @@ export default function ProtectedRoute(props){
     return token?
     <C {...rest}/>:<Navigate replace to = {navigateTo}/>
 }
-
-// export default function ProtectedRoute({children}){
-//     const token = children.props.token
-//     return token ? children : <Navigate to = '/'/>
-// }

@@ -16,7 +16,7 @@ commentRouter.get('/',(req,res,next) =>{
 commentRouter.post('/', (req,res,next)=>{
     req.body.user = req.user._id
     const createComment = new Comment(req.body)
-    // console.log(req.body, "here is where it broke")
+    console.log(req.body, "here is where it broke")
     createComment.save((err,newComment)=>{
         if(err){
             res.status(500)
@@ -60,6 +60,18 @@ commentRouter.get('/search/byUser', (req,res,next)=>{
     let userId = req.user._id
     Comment.find({user: userId},
         (err,comment)=>{
+            if(err){
+                res.status(500)
+                return next(err)
+            }
+            return res.status(201).send(comment)
+        })
+})
+commentRouter.get('/search/byIssue/:byIssue', (req,res,next)=>{
+    let issueId = req.params.byIssue
+    Comment.find({issue: issueId},
+        (err,comment)=>{
+            console.log('it broke here')
             if(err){
                 res.status(500)
                 return next(err)

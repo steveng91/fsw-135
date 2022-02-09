@@ -4,7 +4,7 @@ const initInput = {issue: "", body: ""}
 
 export default function CommentBox(props){
     const [input, setInput] = useState(initInput)
-    const {addComment} = props
+    const {addComment,issues} = props
 
     function handleChange(e){
         const{name, value}=e.target
@@ -22,12 +22,15 @@ export default function CommentBox(props){
     return(
         <form onSubmit={handleSubmit}>
             <label htmlFor = 'issue'>Pick an Issue</label>
-            <input
-                type= 'text'
-                name='issue'
-                value={issue}
-                onChange={handleChange}
-                placeholder = 'issue'/>     
+             <select
+             name='issue'
+             value={issue}
+             onChange={handleChange}>
+             {issues.map(primary=>{
+                 console.log(primary)
+                 return(
+                 <option key = {primary._id} value={primary._id}>{primary.topic}</option>)})}
+         </select>
             
             <input
                 type='text'

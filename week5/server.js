@@ -14,16 +14,16 @@ async function main(){
     await mongoose.connect('mongodb://localhost:27017/RockTheVote')
     console.log('connected to the DB')
 }
-
-app.use('/api', expressJwt({ secret: process.env.SECRET, algorithms: ['RS256'] })) 
-
 app.use('/auth', require('./routes/authRouter.js'))
+
+app.use('/api', expressJwt({ secret: process.env.SECRET, algorithms: ['RS256', 'sha1', 'HS256'] })) 
+
 app.use('/api/comment', require('./routes/commentRouter.js'))
 app.use('/api/issue', require('./routes/issueRouter.js'))
 app.use('/api/user', require('./routes/userRouter.js'))
 
 app.use((err,req,res,next)=>{
-    console.log(err.name, "this is broken")
+    // console.log(err.name, "this is broken")
     if(err.name === "UnauthorizedError"){
         res.status(err.status)
     }

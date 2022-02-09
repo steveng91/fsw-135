@@ -9,6 +9,7 @@
 
      function handleChange(e){
          const{name, value} = e.target
+         console.log(name, value)
          setInput(prevInput => ({
              ...prevInput,
              [name]:value
@@ -16,19 +17,20 @@
      }
      function handleSubmit(e){
          e.preventDefault()
-             selectIssueThread(input)
+         console.log(input)
+             selectIssueThread(input.issue)
              setInput(initInput)    
      }
-     const{issue} = input
+    //  const{issue} = input
      return(
          <div>
              <form onSubmit={handleSubmit}>
-                 <label for= 'issue'>Select Issue</label>
+                 <label htmlFor= 'issue'>Select Issue</label>
                  <select
                     name='issue'
-                    value={issue}
+                    // value={issue}
                     onChange={handleChange}>
-                    {issues.map(primary=>(<option value={primary._id}>{primary.topic}</option>))}
+                    {issues.map(primary=>(<option name= 'issue' key={primary._id} value={primary._id}>{primary.topic}</option>))}
                 </select>
                 <button>View</button>
              </form>

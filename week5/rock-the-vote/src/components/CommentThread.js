@@ -8,4 +8,4 @@ export default function CommentThread(props){
             {comment.map(comment => <Comment username={username} issues={issues} {...comment} key={comment._id}/>)}
         </div>
     )
-}
+} 

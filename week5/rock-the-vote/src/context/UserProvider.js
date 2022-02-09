@@ -89,7 +89,7 @@ export default function UserProvider(props){
         userAxios.get(`/api/comment/search/byIssue/${_id}`)
         .then(res =>{
             setUserState(prevState=>({
-                ...prevState, issueComments: res.data
+                ...prevState, comment: res.data
             }))
         })
         .catch(err => handleError(err.response.data.errMsg))
